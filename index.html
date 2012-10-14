@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>QuranOnTv</title>
+
+		<!-- TODO : Common API -->
+		<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/Widget.js"></script>
+		<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/TVKeyValue.js"></script>
+		<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/Plugin.js"></script>
+		<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/jquery.js"></script>
+		
+		<!-- TODO : Javascript code -->
+		<script language="javascript" type="text/javascript" src="App.js"></script>
+		<script language="javascript" type="text/javascript" src="app/controller/Reciter.js"></script>
+		<script language="javascript" type="text/javascript" src="app/controller/Sura.js"></script>
+		
+		<!-- TODO : Style sheets code -->
+		<link rel="stylesheet" href="resources/css/App.css" type="text/css">
+
+		<!-- TODO: Plugins -->
+        <object id="pluginPlayer" border=0 classid="clsid:SAMSUNG-INFOLINK-PLAYER"></object>
+        <!-- pluginVideo 
+        <object id="pluginVideo" border="0" classid="clsid:SAMSUNG-INFOLINK-VIDEO"></object>
+        -->
+        <object id="pluginAudio" border=0 classid="clsid:SAMSUNG-INFOLINK-AUDIO"></object>
+        <!-- pluginObjectTVMW -->
+        <object id="pluginTVMW" border=0 classid="clsid:SAMSUNG-INFOLINK-TVMW"></object>
+		<!-- pluginNNavi
+		<object id="pluginNNavi" classid="clsid:SAMSUNG-INFOLINK-NNAVI"></object>
+		 -->
+		 <!-- pluginAppCommon -->
+		<object id="pluginAppCommon" classid="clsid:SAMSUNG-INFOLINK-APPCOMMON"></object>
+	</head>
+
+	<body>
+
+		<!-- Dummy anchor as focus for key events -->
+		<a href="javascript:void(0);" id="anchor_reciter" onkeydown="Reciter.keyDown();"></a>
+		<a href="javascript:void(0);" id="anchor_sura" onkeydown="Sura.keyDown();"></a>
+		<!-- TODO: your code here -->
+		<div id="container">
+			<div id="tvkey"></div>
+			<div id="list_reciter"></div>
+			<div id="list_sura"></div>
+			
+		</div>
+        <div>
+				
+			</div>
+	</body>
+</html>
