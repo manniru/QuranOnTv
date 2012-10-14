@@ -39,7 +39,7 @@ Sura.initList = function(){
 	html = '<ul></ul>';
 	$('#list_sura').append(html);
 	alert(html);
-	for(var j=0;j<21;j++){
+	for(var j=0;j<15;j++){
 		$('#list_sura ul').append('<li></li>');
 		$('#list_sura ul li:nth-child('+(j+1)+')').html(suraList[j+i].link);
 	}

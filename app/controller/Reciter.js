@@ -142,8 +142,8 @@ Reciter.keyDown = function()
 	var keyCode = event.keyCode;
 	switch(keyCode)
 	{
-		case tvKey.KEY_1:$(location).attr('href',"http://www.google.nl");break;
-		case tvKey.KEY_2:window.location.href = "http://www.google.nl";break;
+		case tvKey.KEY_1:window.location.href = "page2.html";break;
+		case tvKey.KEY_2:window.location.href = "http://192.168.1.4/";break;
 		case tvKey.KEY_EXIT:$('#tvkey').html("Sura EXIT");widgetAPI.sendExitEvent();break;
 		case tvKey.KEY_RETURN:alert("Reciter RETURN");widgetAPI.sendReturnEvent();break;
 		case tvKey.KEY_PANEL_RETURN:alert("Reciter RETURN");widgetAPI.sendReturnEvent();break;
