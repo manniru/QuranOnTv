@@ -1,17 +1,25 @@
 var widgetAPI = new Common.API.Widget();
 var pluginAPI = new Common.API.Plugin();
 var tvKey = new Common.API.TVKeyValue();
+
+var __reciter = new reciter();
+var __sura = new sura();
 var App =
 {
 		plugin : null,
+		reciter: __reciter,
+		sura: __sura,
+		init : function(){
+			__reciter.loadData();
+			this.plugin = document.getElementById("pluginPlayer");
+			this.plugin.SetDisplayArea(20, 58, 20, 100);
+		},
 };
 
 /* events loaded when document is ready */
 $(document).ready(function()
 {
 	jQuery.support.cors = true;// force cross-site scripting
-	App.plugin = document.getElementById("pluginPlayer");
-	App.plugin.SetDisplayArea(20, 58, 20, 100);
 	
 	window.onshow = function () {              // register the onshow event callback
 		pluginAPI.unregistKey(7);
@@ -19,7 +27,7 @@ $(document).ready(function()
     };
 	// Enable key event processing
 	widgetAPI.sendReadyEvent();
-	Reciter.loadData();
+	App.init();
 });
 
 /*

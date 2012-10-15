@@ -11,9 +11,9 @@
 		<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/jquery.js"></script>
 		
 		<!-- TODO : Javascript code -->
+		<script language="javascript" type="text/javascript" src="app/controller/sura.class.js"></script>
+		<script language="javascript" type="text/javascript" src="app/controller/reciter.class.js"></script>
 		<script language="javascript" type="text/javascript" src="App.js"></script>
-		<script language="javascript" type="text/javascript" src="app/controller/Reciter.js"></script>
-		<script language="javascript" type="text/javascript" src="app/controller/Sura.js"></script>
 		
 		<!-- TODO : Style sheets code -->
 		<link rel="stylesheet" href="resources/css/App.css" type="text/css">
@@ -37,8 +37,8 @@
 	<body>
 
 		<!-- Dummy anchor as focus for key events -->
-		<a href="javascript:void(0);" id="anchor_reciter" onkeydown="Reciter.keyDown();"></a>
-		<a href="javascript:void(0);" id="anchor_sura" onkeydown="Sura.keyDown();"></a>
+		<a href="javascript:void(0);" id="anchor_reciter" onkeydown="App.reciter.keyDown();"></a>
+		<a href="javascript:void(0);" id="anchor_sura" onkeydown="App.sura.keyDown();"></a>
 		<!-- TODO: your code here -->
 		<div id="container">
 			<div id="list_reciter"></div>
