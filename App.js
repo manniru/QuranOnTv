@@ -1,18 +1,20 @@
 var widgetAPI = new Common.API.Widget();
 var pluginAPI = new Common.API.Plugin();
 var tvKey = new Common.API.TVKeyValue();
-
+/*****Google Analytics****/
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-19277558-4']);
+_gaq.push(['_trackPageview']);
+/**********/
 var __reciter = new reciter();
 var __sura = new sura();
+
 var App =
 {
-		plugin : null,
 		reciter: __reciter,
 		sura: __sura,
 		init : function(){
 			__reciter.loadData();
-			this.plugin = document.getElementById("pluginPlayer");
-			this.plugin.SetDisplayArea(20, 58, 20, 100);
 		},
 };
 
@@ -21,7 +23,23 @@ $(document).ready(function()
 {
 	jQuery.support.cors = true;// force cross-site scripting
 	
-	window.onshow = function () {              // register the onshow event callback
+	/*****Google Analytics****/
+	var ga = document.createElement('script');
+	ga.type = 'text/javascript';
+	ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0];
+	s.parentNode.insertBefore(ga, s);
+	/**********/
+	pluginAPI.unregistKey(tvKey.KEY_VOL_UP);
+	pluginAPI.unregistKey(tvKey.KEY_VOL_DOWN);
+	pluginAPI.unregistKey(tvKey.KEY_MUTE);
+	pluginAPI.unregistKey(tvKey.KEY_EXIT);
+	pluginAPI.unregistKey(tvKey.KEY_MENU);
+	pluginAPI.unregistKey(tvKey.KEY_INFOLINK);
+	
+	window.onshow = function () {
+		// register the onshow event callback
 		pluginAPI.unregistKey(7);
 		pluginAPI.unregistKey(11);
     };

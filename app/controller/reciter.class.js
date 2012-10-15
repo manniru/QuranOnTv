@@ -19,7 +19,7 @@ reciter = function(){
 			url: "http://192.168.1.4/koran/json",
 			success: function(json) {
 				$.each(json, function(i,item){
-					reciterList[i] = { 'rnumber':item.rnumber, 'name':item.name };//make the reciterList array
+					reciterList[i] = { 'rnumber':item.reciter_id, 'name':item.name };//make the reciterList array
 					//alert('rnumber:'+data[i].rnumber+';name:'+data[i].name);
 				});
 				self.initList();// prepare UI list
@@ -171,8 +171,6 @@ reciter = function(){
 		var keyCode = event.keyCode;
 		switch(keyCode)
 		{
-			case tvKey.KEY_1:window.location.href = "page2.html";break;
-			case tvKey.KEY_2:window.location.href = "http://192.168.1.4/";break;
 			case tvKey.KEY_EXIT:$('#tvkey').html("Sura EXIT");widgetAPI.sendExitEvent();break;
 			case tvKey.KEY_RETURN:alert("Reciter RETURN");widgetAPI.sendReturnEvent();break;
 			case tvKey.KEY_PANEL_RETURN:alert("Reciter RETURN");widgetAPI.sendReturnEvent();break;

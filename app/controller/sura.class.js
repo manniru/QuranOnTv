@@ -5,7 +5,7 @@ sura = function(){
 	var m = 0;
 	var suraList = new Array();
 	var suraListLength = 0;
-	
+	var __player = new player();
 	/**
 	 *
 	 *
@@ -16,11 +16,12 @@ sura = function(){
 			success: function(json) {
 				$.each(json, function(i,item){
 					
-					suraList[i] = { 'snumber':item.snumber, 'link':item.link };
-					alert('snumber:'+suraList[i].snumber+';link:'+suraList[i].link);
+					suraList[i] = { 'snumber':item.sura_id, 'name':item.name, 'link':item.Application_Model_Recitation[0].link };
+					alert('snumber:'+suraList[i].snumber+';name:'+item.Application_Model_Recitation[0].link);
 					//data.push(item.name);
 				});
 				self.initList();
+				__player.init();
 			},
 		    error: function(jqXHR, textStatus, errorThrown) {
 		        alert("jqXHR: "+jqXHR);
@@ -48,7 +49,7 @@ sura = function(){
 		alert(html);
 		for(var j=0;j<15;j++){
 			$('#list_sura ul').append('<li></li>');
-			$('#list_sura ul li:nth-child('+(j+1)+')').html(suraList[j+i].link);
+			$('#list_sura ul li:nth-child('+(j+1)+')').html(suraList[j+i].name);
 		}
 		$('#list_sura ul li:nth-child('+1+')').removeClass('selected');
 		$('#list_sura ul li:nth-child('+1+')').addClass('selected');
@@ -105,8 +106,8 @@ sura = function(){
 			//case tvKey.KEY_PANEL_SOURCE:$('#tvkey').html("Sura PANEL_SOURCE");break;
 			case tvKey.KEY_PANEL_VOL_DOWN:$('#tvkey').html("Sura PANEL_VOL_DOWN");break;//not working
 			case tvKey.KEY_PANEL_VOL_UP:$('#tvkey').html("Sura PANEL_VOL_UP");break;//not working
-			case tvKey.KEY_PAUSE:$('#tvkey').html("Sura PAUSE");App.plugin.Pause();break;
-			case tvKey.KEY_PLAY:$('#tvkey').html("Sura PLAY");App.plugin.Stop();App.plugin.Play( suraList[i].link );break;
+			case tvKey.KEY_PAUSE:$('#tvkey').html("Sura PAUSE");__player.pause();break;
+			case tvKey.KEY_PLAY:$('#tvkey').html("Sura PLAY");__player.play( suraList[i].link );break;
 			//case tvKey.KEY_PRECH:$('#tvkey').html("Sura PRECH");break;
 			//case tvKey.KEY_REC:$('#tvkey').html("Sura REC");break;
 			//case tvKey.KEY_RED:$('#tvkey').html("Sura RED");break;
@@ -114,7 +115,7 @@ sura = function(){
 			case tvKey.KEY_RIGHT:$('#tvkey').html("Sura RIGHT");break;
 			//case tvKey.KEY_RW:$('#tvkey').html("Sura RW");break;
 			//case tvKey.KEY_SOURCE:$('#tvkey').html("Sura SOURCE");break;
-			case tvKey.KEY_STOP:$('#tvkey').html("Sura STOP");App.plugin.Stop();break;
+			case tvKey.KEY_STOP:$('#tvkey').html("Sura STOP");__player.stop();break;
 			case tvKey.KEY_TOOLS:$('#tvkey').html("Sura TOOLS");pluginAPI.ShowTools(1);break;
 			case tvKey.KEY_UP:$('#tvkey').html("Sura UP");self.up();break;
 			//case tvKey.KEY_WHEELDOWN:$('#tvkey').html("Sura WHEELDOWN");break;
@@ -138,7 +139,7 @@ sura = function(){
 				$('#list_sura ul li:nth-child('+m+')').removeClass('selected');
 				i++;
 				for(var j=1;j<=suraListLength;j++){
-					$('#list_sura ul li:nth-child('+j+')').html(suraList[j+i-m].link);
+					$('#list_sura ul li:nth-child('+j+')').html(suraList[j+i-m].name);
 				}
 				$('#list_sura ul li:nth-child('+m+')').addClass('selected');
 			}else if(i>=suraList.length-m && l<suraListLength){
@@ -162,7 +163,7 @@ sura = function(){
 				$('#list_sura ul li:nth-child('+m+')').removeClass('selected');
 				i--;
 				for(var j=1;j<suraListLength+1;j++){
-					$('#list_sura ul li:nth-child('+j+')').html(suraList[j+i-m].link);
+					$('#list_sura ul li:nth-child('+j+')').html(suraList[j+i-m].name);
 				}
 				$('#list_sura ul li:nth-child('+m+')').addClass('selected');
 			}else if(i>suraList.length-m && l>m){
