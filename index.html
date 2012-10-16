@@ -24,10 +24,14 @@
 		<link rel="stylesheet" href="resources/css/qunit-1.10.0.css">
 		
 		<!-- TODO : Javascript code -->
-		<script language="javascript" type="text/javascript" src="app/controller/sura.class.js"></script>
-		<script language="javascript" type="text/javascript" src="app/controller/reciter.class.js"></script>
-		<script language="javascript" type="text/javascript" src="app/controller/player.class.js"></script>
-		<script language="javascript" type="text/javascript" src="App.js"></script>
+		<script type="text/javascript" src="app/controller/sura.controller.js"></script>
+		<script type="text/javascript" src="app/controller/reciter.controller.js"></script>
+		<script type="text/javascript" src="app/controller/player.controller.js"></script>
+		<script type="text/javascript" src="app/view/reciter.view.js"></script>
+		<script type="text/javascript" src="app/view/sura.view.js"></script>
+		<script type="text/javascript" src="app/store/reciter.data.js"></script>
+		<script type="text/javascript" src="app/store/sura.data.js"></script>
+		<script type="text/javascript" src="App.js"></script>
 		
 		<!-- TODO : Style sheets code -->
 		<link rel="stylesheet" href="resources/css/jquery.ui.all.css">
@@ -47,8 +51,8 @@
 	<body>
 
 		<!-- Dummy anchor as focus for key events -->
-		<a href="javascript:void(0);" id="anchor_reciter" onkeydown="App.reciter.keyDown();"></a>
-		<a href="javascript:void(0);" id="anchor_sura" onkeydown="App.sura.keyDown();"></a>
+		<a href="javascript:void(0);" id="anchor_reciter"></a>
+		<a href="javascript:void(0);" id="anchor_sura"></a>
 		<!-- TODO: your code here -->
 		<div id="container">
 			<div>

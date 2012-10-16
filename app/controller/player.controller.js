@@ -1,60 +1,59 @@
-/*function onBufferingProgress(percent){
-	$('#time').html("Buffering:" + percent + "%");
-};*/
-
-player = function(){
+playerController = function(){
 	var self = this;
+	var __suraView = new suraView();
 	var position = 0;
-	var playList = new Array();
+	var list = new Array();
 	var pluginTVMW = null;
 	var pluginAudio = null;
 	var pluginNNavi = null;
 	var pluginPlayer = null;
+	
 	this.init = function(){
 		
 		self.pluginTVMW		= document.getElementById("pluginTVMW");
 	    self.pluginAudio 	= document.getElementById("pluginAudio");
 	    self.pluginNNavi 	= document.getElementById("pluginNNavi");
-		self.pluginPlayer 	= document.getElementById("pluginPlayer");
-		self.pluginPlayer.SetDisplayArea(20, 58, 20, 100);
+		pluginPlayer 	= document.getElementById("pluginPlayer");
+		pluginPlayer.SetDisplayArea(20, 58, 20, 100);
 		self.pluginAudio.SetVolumeWithKey(0);
 		self.pluginNNavi.SetBannerState(1);
 		
-		self.pluginPlayer.OnCurrentPlayTime= "OnCurrentPlayTime";
-		self.pluginPlayer.OnStreamInfoReady= "OnStreamInfoReady";
-		self.pluginPlayer.OnBufferingStart= "OnBufferingStart";
-		self.pluginPlayer.OnBufferingProgress = "onBufferingProgress";
-		self.pluginPlayer.OnBufferingComplete = "onBufferingComplete";
-		self.pluginPlayer.OnConnectionFailed = "OnConnectionFailed";
-		self.pluginPlayer.OnRenderingComplete = "OnRenderingComplete";
+		pluginPlayer.OnCurrentPlayTime= "OnCurrentPlayTime";
+		pluginPlayer.OnStreamInfoReady= "OnStreamInfoReady";
+		pluginPlayer.OnBufferingStart= "OnBufferingStart";
+		pluginPlayer.OnBufferingProgress = "onBufferingProgress";
+		pluginPlayer.OnBufferingComplete = "onBufferingComplete";
+		pluginPlayer.OnConnectionFailed = "OnConnectionFailed";
+		pluginPlayer.OnRenderingComplete = "OnRenderingComplete";
 		
 		alert('pluginTVMW: '+self.pluginTVMW.GetPluginInfo(0));
 		alert('pluginAudio: '+self.pluginAudio.GetPluginInfo(0));
 		alert('pluginNNavi: '+self.pluginNNavi.GetPluginInfo(0));
-		alert('pluginPlayer: '+self.pluginPlayer.GetPluginInfo(0));
+		alert('pluginPlayer: '+pluginPlayer.GetPluginInfo(0));
 		alert('volume: ' + self.pluginAudio.GetVolume());
 		alert('mute: ' + self.pluginAudio.GetUserMute());
 		
 	};
 	
-	this.setPlayList = function(playList){
-		this.playList = playList;
+	this.setList = function(arr){
+		list = arr;
 	};
 	
-	this.setPosition = function(position){
-		self.position = position;
+	this.setPosition = function(pos){
+		position = pos;
 	};
 	
-	this.play = function(file){
-		self.pluginPlayer.Play(file);
+	this.play = function(){
+		alert('player pos: ' + position);
+		pluginPlayer.Play(list[position].link);
 	};
 	
 	this.stop = function(){
-		self.pluginPlayer.Stop();
+		pluginPlayer.Stop();
 	};
 	
 	this.pause = function(){
-		self.pluginPlayer.Pause();
+		pluginPlayer.Pause();
 	};
 	
 	this.setRelativeVolume = function(delta)
@@ -73,7 +72,7 @@ player = function(){
 	};
 	
 	OnStreamInfoReady = function (){
-		$('#time').html(self.pluginPlayer.GetDuration()/1000);
+		$('#time').html(pluginPlayer.GetDuration()/1000);
 	};
 	
 	OnCurrentPlayTime = function (time){
@@ -86,9 +85,9 @@ player = function(){
 	
 	onBufferingProgress = function (percent){
 		$('#time').html("Buffering:" + percent + "%");
-		$( "#progressbar" ).progressbar({
+		/*$( "#progressbar" ).progressbar({
             value: 50
-        });
+        });*/
 	};
 	
 	onBufferingComplete = function (){
@@ -102,7 +101,11 @@ player = function(){
 	OnRenderingComplete = function (time){
 		$('#time').html('Rendering Complete.');
 		self.stop();
-		self.position++;
-		self.play(self.playList[self.position].link);
+		position++;
+		alert('OnRenderingComplete pos:' + position);
+		__suraView.setList(list);
+		__suraView.setPosition(position);
+		__suraView.down();
+		self.play(list[position].link);
 	};
 };
