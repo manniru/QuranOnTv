@@ -6,6 +6,7 @@ sura = function(){
 	var suraList = new Array();
 	var suraListLength = 0;
 	var __player = new player();
+	__player.setPlayList(suraList);
 	/**
 	 *
 	 *
@@ -69,7 +70,7 @@ sura = function(){
 		$('#tvkey').html("Sura 1 : "+keyCode);
 		switch(keyCode)
 		{
-			//case tvKey.KEY_1:$('#tvkey').html("Sura 1");break;
+			case tvKey.KEY_1:location.href = "test.html";break;
 			//case tvKey.KEY_2:$('#tvkey').html("Sura 2");break;
 			//case tvKey.KEY_3:$('#tvkey').html("Sura 3");break;
 			//case tvKey.KEY_4:$('#tvkey').html("Sura 4");break;
@@ -107,7 +108,7 @@ sura = function(){
 			case tvKey.KEY_PANEL_VOL_DOWN:$('#tvkey').html("Sura PANEL_VOL_DOWN");break;//not working
 			case tvKey.KEY_PANEL_VOL_UP:$('#tvkey').html("Sura PANEL_VOL_UP");break;//not working
 			case tvKey.KEY_PAUSE:$('#tvkey').html("Sura PAUSE");__player.pause();break;
-			case tvKey.KEY_PLAY:$('#tvkey').html("Sura PLAY");__player.play( suraList[i].link );break;
+			case tvKey.KEY_PLAY:$('#tvkey').html("Sura PLAY");__player.play( suraList[i].link );__player.setPosition(i);break;
 			//case tvKey.KEY_PRECH:$('#tvkey').html("Sura PRECH");break;
 			//case tvKey.KEY_REC:$('#tvkey').html("Sura REC");break;
 			//case tvKey.KEY_RED:$('#tvkey').html("Sura RED");break;

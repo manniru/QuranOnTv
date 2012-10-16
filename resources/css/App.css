@@ -19,6 +19,7 @@ body
 	position: fixed;
 	
 }
+
 #pluginTVMW{
 	opacity: 0.0;
 	background-color: #000;
@@ -44,7 +45,7 @@ body
 #container{
 	background-color: #ffffff;
 	border: 1px solid black;
-	opacity: 0.6;
+	opacity: 0.8;
 	font-family: Verdana, Geneva, sans-serif;
 	margin: 10px;
 	height: 500px;

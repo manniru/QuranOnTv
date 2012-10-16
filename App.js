@@ -37,7 +37,6 @@ $(document).ready(function()
 	pluginAPI.unregistKey(tvKey.KEY_EXIT);
 	pluginAPI.unregistKey(tvKey.KEY_MENU);
 	pluginAPI.unregistKey(tvKey.KEY_INFOLINK);
-	
 	window.onshow = function () {
 		// register the onshow event callback
 		pluginAPI.unregistKey(7);
