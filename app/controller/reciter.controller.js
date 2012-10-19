@@ -1,17 +1,16 @@
 reciterController = function(){
-	
-	//var self = this;
-	
-	var list = new Array();
-	var __view = new reciterView();
-	var __suraData = new suraData();
+	var __sura = new suraController();
 	
 	/**
 	 *
 	 *
 	 */
 	this.init = function(){
-		document.getElementById("anchor_reciter").focus();
+		reciterData.getInstance().init();
+		var list = reciterData.getInstance().getList();
+		var view = reciterView.getInstance();
+		view.init();
+		
 		$('#anchor_reciter').keydown(function(){
 			var keyCode = event.keyCode;
 			switch(keyCode)
@@ -19,26 +18,13 @@ reciterController = function(){
 				case tvKey.KEY_EXIT:widgetAPI.sendExitEvent();break;
 				case tvKey.KEY_RETURN:widgetAPI.sendReturnEvent();break;
 				case tvKey.KEY_PANEL_RETURN:widgetAPI.sendReturnEvent();break;
-				case tvKey.KEY_LEFT: __view.previousPage();break;
-				case tvKey.KEY_RIGHT:__view.nextPage();break;
-				case tvKey.KEY_UP:__view.up();break;
-				case tvKey.KEY_DOWN:__view.down();break;
-				case tvKey.KEY_ENTER:__suraData.init(list[__view.getPosition()].rnumber);break;
-				case tvKey.KEY_PANEL_ENTER:alert("Reciter ENTER");break;
-				case 7:alert("Reciter VOL UP");break;
-				case 11:alert("Reciter VOL DWN");break;
+				case tvKey.KEY_LEFT: view.previousPage();break;
+				case tvKey.KEY_RIGHT:view.nextPage();break;
+				case tvKey.KEY_UP:view.up();break;
+				case tvKey.KEY_DOWN:view.down();break;
+				case tvKey.KEY_ENTER:__sura.init(list[view.getPosition()].rnumber);break;
 				default:alert("Unhandled key");break;
 			}
 		});
-		__view.setList(list);
-		__view.init();
-	};
-
-	this.setList = function(arr){
-		list = arr;
-	};
-	
-	this.getList = function(){
-		return list;
 	};
 };

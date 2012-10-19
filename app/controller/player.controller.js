@@ -1,22 +1,25 @@
 playerController = function(){
 	var self = this;
-	var __suraView = new suraView();
-	var position = 0;
+	var state = -1;// the state of the player
+	var STOPPED = 0;
+	var PLAYING = 1;
+	var PAUSED  = 2;
+	var view = playerView.getInstance();
+	
+	var pluginPlayer 	= document.getElementById("pluginPlayer");
+	var pluginAudio 	= document.getElementById("pluginAudio");
+	var pluginTVMW		= document.getElementById("pluginTVMW");
+	
 	var list = new Array();
-	var pluginTVMW = null;
-	var pluginAudio = null;
-	var pluginNNavi = null;
-	var pluginPlayer = null;
 	
 	this.init = function(){
+		state = STOPPED;
+		list = suraData.getInstance().getList();
 		
-		self.pluginTVMW		= document.getElementById("pluginTVMW");
-	    self.pluginAudio 	= document.getElementById("pluginAudio");
-	    self.pluginNNavi 	= document.getElementById("pluginNNavi");
-		pluginPlayer 	= document.getElementById("pluginPlayer");
-		pluginPlayer.SetDisplayArea(20, 58, 20, 100);
-		self.pluginAudio.SetVolumeWithKey(0);
-		self.pluginNNavi.SetBannerState(1);
+		view.init();
+		pluginPlayer.SetDisplayArea(100, 58, 20, 100);
+		pluginAudio.SetVolumeWithKey(0);
+		pluginNNavi.SetBannerState(1);
 		
 		pluginPlayer.OnCurrentPlayTime= "OnCurrentPlayTime";
 		pluginPlayer.OnStreamInfoReady= "OnStreamInfoReady";
@@ -25,37 +28,69 @@ playerController = function(){
 		pluginPlayer.OnBufferingComplete = "onBufferingComplete";
 		pluginPlayer.OnConnectionFailed = "OnConnectionFailed";
 		pluginPlayer.OnRenderingComplete = "OnRenderingComplete";
-		
-		alert('pluginTVMW: '+self.pluginTVMW.GetPluginInfo(0));
-		alert('pluginAudio: '+self.pluginAudio.GetPluginInfo(0));
-		alert('pluginNNavi: '+self.pluginNNavi.GetPluginInfo(0));
+		pluginPlayer.OnNetworkDisconnected = OnNetworkDisconnected;
+		$('#reciter').html('player ver: '+pluginPlayer.GetPlayerVersion());
+		alert('pluginTVMW: '+pluginTVMW.GetPluginInfo(0));
+		alert('pluginAudio: '+pluginAudio.GetPluginInfo(0));
+		alert('pluginNNavi: '+pluginNNavi.GetPluginInfo(0));
 		alert('pluginPlayer: '+pluginPlayer.GetPluginInfo(0));
-		alert('volume: ' + self.pluginAudio.GetVolume());
-		alert('mute: ' + self.pluginAudio.GetUserMute());
+		alert('volume: ' + pluginAudio.GetVolume());
+		alert('mute: ' + pluginAudio.GetUserMute());
 		
-	};
-	
-	this.setList = function(arr){
-		list = arr;
 	};
 	
 	this.setPosition = function(pos){
 		position = pos;
 	};
 	
+	this.setListPosition = function(pos){
+		l = pos;
+	};
+	
 	this.play = function(){
-		alert('player pos: ' + position);
-		pluginPlayer.Play(list[position].link);
+		if(state == PLAYING){
+			pluginPlayer.Stop();
+			pluginPlayer.Play(list[suraView.getInstance().getPosition()].link);
+		}
+		
+		if(state == PAUSED){
+			pluginPlayer.Resume();
+		}
+		if(state == STOPPED){
+			pluginPlayer.Play(list[suraView.getInstance().getPosition()].link);
+		}
+		state = PLAYING;
 	};
 	
 	this.stop = function(){
-		pluginPlayer.Stop();
+		if(state == PLAYING){
+			pluginPlayer.Stop();
+			state = STOPPED;
+		}
 	};
 	
 	this.pause = function(){
-		pluginPlayer.Pause();
+		if(state == PLAYING){
+			pluginPlayer.Pause();
+			state = PAUSED;
+		}
 	};
 	
+	this.volumeInc = function(){
+		
+	};
+	
+	this.volumeDec = function(){
+		pluginAudio.SetVolumeWithKey(1);
+		vol = pluginAudio.GetVolume();
+		pluginPlayer.audioVol(vol);
+		if(userMute == 1)
+		{
+		pluginAudio.SetUserMute(false);
+		userMute = pluginAudio.GetUserMute();
+		pluginPlayer.audioMute(0);
+		}
+	};
 	this.setRelativeVolume = function(delta)
 	{
 		self.pluginTVMW.SetVolumeWithKey(delta);
@@ -72,40 +107,41 @@ playerController = function(){
 	};
 	
 	OnStreamInfoReady = function (){
-		$('#time').html(pluginPlayer.GetDuration()/1000);
+		view.totalTime(pluginPlayer.GetDuration());
 	};
 	
 	OnCurrentPlayTime = function (time){
-		$('#time').html("00:00:"+Math.floor(time/1000));
+		var timePercent = (100 * time) / pluginPlayer.GetDuration();
+	    view.curTime(time);
+	    view.progressbar(timePercent);
 	};
 	
 	OnBufferingStart = function (time){
-		$('#time').html('Buffering...');
+		//$('#buffer').html('Buffering...');
 	};
 	
 	onBufferingProgress = function (percent){
-		$('#time').html("Buffering:" + percent + "%");
-		/*$( "#progressbar" ).progressbar({
-            value: 50
-        });*/
+		view.buffer(percent);
 	};
 	
 	onBufferingComplete = function (){
-		$('#time').html('Buffering complete');
+		$('#buffer').width('100%');
 	};
 	
 	OnConnectionFailed = function (time){
-		$('#time').html('Connection Failed.');
+		//$('#progressbar').html('Connection Failed.');
 	};
 	
 	OnRenderingComplete = function (time){
-		$('#time').html('Rendering Complete.');
+		//$('#progressbar').html('Rendering Complete.');
 		self.stop();
-		position++;
-		alert('OnRenderingComplete pos:' + position);
-		__suraView.setList(list);
-		__suraView.setPosition(position);
-		__suraView.down();
-		self.play(list[position].link);
+		if(suraView.getInstance().getPosition()<list.length-1){
+			suraView.getInstance().down();
+			self.play();
+		}
 	};
+	
+	OnNetworkDisconnected = function(){
+		self.stop();
+	}
 };

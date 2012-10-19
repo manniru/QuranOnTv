@@ -3,25 +3,14 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>QuranOnTv</title>
-
+		<!-- TODO : Style sheets code -->
+		<link rel="stylesheet" href="resources/css/App.css" type="text/css">
+        
 		<!-- TODO : Common API -->
 		<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/Widget.js"></script>
 		<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/TVKeyValue.js"></script>
 		<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/Plugin.js"></script>
-		<!-- script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/jquery.js"></script-->
-		<script type="text/javascript" src="$MANAGER_WIDGET/Common/Plugin/Define.js"></script>
-        <script type="text/javascript" src="$MANAGER_WIDGET/Common/Util/Include.js"></script>
-        <script type="text/javascript" src="$MANAGER_WIDGET/Common/Util/Language.js"></script>
-		
-		
 		<script src="resources/js/jquery/jquery-1.8.2.js"></script>
-    	<script src="resources/js/jquery/jquery-ui.js"></script>
-		<script src="resources/js/jquery/jquery.ui.core.js"></script>
-		<script src="resources/js/jquery/jquery.ui.widget.js"></script>
-		<script src="resources/js/jquery/jquery.ui.progressbar.js"></script>
-		
-		<script src="resources/js/jquery/qunit-1.10.0.js"></script>
-		<link rel="stylesheet" href="resources/css/qunit-1.10.0.css">
 		
 		<!-- TODO : Javascript code -->
 		<script type="text/javascript" src="app/controller/sura.controller.js"></script>
@@ -29,17 +18,16 @@
 		<script type="text/javascript" src="app/controller/player.controller.js"></script>
 		<script type="text/javascript" src="app/view/reciter.view.js"></script>
 		<script type="text/javascript" src="app/view/sura.view.js"></script>
+		<script type="text/javascript" src="app/view/player.view.js"></script>
 		<script type="text/javascript" src="app/store/reciter.data.js"></script>
 		<script type="text/javascript" src="app/store/sura.data.js"></script>
 		<script type="text/javascript" src="App.js"></script>
 		
-		<!-- TODO : Style sheets code -->
-		<link rel="stylesheet" href="resources/css/jquery.ui.all.css">
-		<link rel="stylesheet" href="resources/css/App.css" type="text/css">
 		<!-- TODO: Plugins 
 		
 		<object id="pluginVideo" border="0" classid="clsid:SAMSUNG-INFOLINK-VIDEO"></object>
 		<object id="pluginAppCommon" classid="clsid:SAMSUNG-INFOLINK-APPCOMMON"></object>
+		<object id="pluginTV" classid="clsid:SAMSUNG-INFOLINK-TV"></object>
 		-->
 		<object id="pluginFile" border=0 classid="clsid:SAMSUNG-INFOLINK-FILESYSTEM"></object>
 		
@@ -47,6 +35,8 @@
         <object id="pluginAudio" border=0 classid="clsid:SAMSUNG-INFOLINK-AUDIO"></object>
         <object id="pluginTVMW" border=0 classid="clsid:SAMSUNG-INFOLINK-TVMW"></object>
 		<object id="pluginNNavi" classid="clsid:SAMSUNG-INFOLINK-NNAVI"></object>
+		
+		<object id="pluginNTWRK" border=0 classid="clsid:SAMSUNG-INFOLINK-NETWORK"></object>
 	</head>
 	<body>
 
@@ -55,13 +45,22 @@
 		<a href="javascript:void(0);" id="anchor_sura"></a>
 		<!-- TODO: your code here -->
 		<div id="container">
-			<div>
-				<div id="time"></div>
-				<div id="progressbar"></div>
+			<div id="listcontainer">
+				<div id="list_reciter" class="list"></div>
+				<div id="list_sura" class="list"></div>
 			</div>
-			
-			<div id="list_reciter"></div>
-			<div id="list_sura"></div>
+			<div id="player">
+            	<div id="info">
+                    <div id="reciter"></div>
+                    <div id="sura"></div>
+                </div>
+				<div id="progressbar"></div>
+				<div id="buffer"></div>
+                <div>
+                	<div id="curtime"></div>
+					<div id="totaltime"></div>
+                </div>
+			</div>
 		</div>
 	</body>
 </html>

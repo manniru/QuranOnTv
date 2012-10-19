@@ -1,35 +1,22 @@
 var widgetAPI = new Common.API.Widget();
 var pluginAPI = new Common.API.Plugin();
 var tvKey = new Common.API.TVKeyValue();
-/*****Google Analytics****/
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-19277558-4']);
-_gaq.push(['_trackPageview']);
-/**********/
 
-application = function(){
-	var __reciter = new reciterData();
-	
-	this.init = function(){
-		__reciter.init();
-		// Enable key event processing
-		widgetAPI.sendReadyEvent();
-	};
-};
 /* events loaded when document is ready */
 $(document).ready(function()
 {
-	jQuery.support.cors = true;// force cross-site scripting
+	pluginAPI.unregistKey(7); //unregister volume up button
+	pluginAPI.unregistKey(11); //unregister volume down button
+	pluginAPI.unregistKey(27); //unregister mute button
+	pluginAPI.unregistKey(45); //unregister EXIT key
+	pluginAPI.unregistKey(262); //unregister MENU key
 	
-	/*****Google Analytics****/
-	var ga = document.createElement('script');
-	ga.type = 'text/javascript';
-	ga.async = true;
-	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	var s = document.getElementsByTagName('script')[0];
-	s.parentNode.insertBefore(ga, s);
-	/**********/
-	var __application = new application();
-	__application.init();
+	jQuery.support.cors = true;// force cross-site scripting
+	var d = new Date();
+	alert('system time:' + d.toLocaleTimeString());
+	
+	var __reciter = new reciterController();
+	__reciter.init();
+	widgetAPI.sendReadyEvent();
 	
 });
